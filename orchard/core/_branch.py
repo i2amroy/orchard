@@ -327,7 +327,8 @@ def branching2(config_file, link_file, workspace_path):
         # For each dynamic path in our modules that match from a previous run
         # we need to generate a symlink to the old dynamic path
         for module in branch_matching:
-            for path in module.get_dynamic_paths():
+            for arg in module.get_dynamic_paths():
+                path = arg.value
                 working_path = os.path.join(workspace_path, path)
                 oldpath = insert_branch_into_path(working_path, best_branchnum)
                 newpath = insert_branch_into_path(working_path, new_branchnum)

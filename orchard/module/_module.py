@@ -80,9 +80,18 @@ class Module:
                              'for argument: %s.' % argument_name) from None
         return argument
 
+    # Returns a list of Argument Class objects that hold the dynamic paths
+    # within this module
     def get_dynamic_paths(self):
-        # TODO
-        pass
+        ret = []
+        for arg in self.arguments:
+            if isinstance(arg, Argument):
+                if arg.is_dyn_path:
+                    ret.append(arg)
+            elif isinstance(arg, Exclusive):
+                active_arg = arg.get_selected()
+                if active_arg.is_dyn_path:
+                    ret.append(active_arg)
 
     def add_dependency(self, dependency):
         self.dependencies = self.dependencies or []

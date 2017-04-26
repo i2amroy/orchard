@@ -16,18 +16,25 @@ class LogFile():
     # self.data - a collection that contains the raw yaml dictionary
     configs = {}
 
-    def __init__(self, filepath):
-        data = collections.defaultdict(list)
-        with open(filepath) as fh:
-            try:
-                data.update(yaml.load(fh))
-            except Exception as e:
-                raise RuntimeError('The log file is not a valid yaml format.')
+    # If new is not true then open filedata as a path and read it in, else
+    # make a new branch 1 in our structure that matches the ConfigFile passed
+    # in as filedata
+    def __init__(self, filedata, new):
+        if not new:
+            data = collections.defaultdict(list)
+            with open(filedata) as fh:
+                try:
+                    data.update(yaml.load(fh))
+                except Exception as e:
+                    raise RuntimeError(
+                        'The log file is not a valid yaml format.')
 
-        # Push each branch's ConfigFile Structure to the matching branchnum
-        # entry in self.configs
-        for branchnum, config_dat in data.items():
-            self.configs[branchnum] = ConfigFile(config_dat, False)
+            # Push each branch's ConfigFile Structure to the matching branchnum
+            # entry in self.configs
+            for branchnum, config_dat in data.items():
+                self.configs[branchnum] = ConfigFile(config_dat, False)
+        else:
+            self.configs[1] = filedata
 
     def get_yaml(self):
         data = {}
@@ -39,6 +46,7 @@ class LogFile():
     def write(self, filepath):
         def _add_repr(dumper, value):
             return dumper.represent_scalar(u'tag:yaml.org,2002:null', '')
+
         yaml.SafeDumper.add_representer(type(None), _add_repr)
 
         with open(filepath, 'w') as fh:

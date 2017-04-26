@@ -12,7 +12,9 @@ from ..module import Module, Argument, Exclusive
 
 
 class ConfigFile(YAMLFile):
-
+    # If fromfile is true then filedata is a filepath that we open. Else
+    # filedata is a dictionary that contains the new ConfigFile's data and
+    # we just use it directly
     def __init__(self, filedata, fromfile):
         if fromfile:
             super().__init__(filedata)

@@ -13,6 +13,17 @@ from ..module import Module
 
 class ConfigFile(YAMLFile):
 
+    def __init__(self, filedata, fromfile):
+        if fromfile:
+            super().__init__(filedata)
+        else:
+            self.data = filedata
+            modules = self.data.get('modules')
+            if modules:
+                self.modules = []
+                self._add_modules(modules)
+
+    # Nothing fancy here, just add our module to self.modules
     def _add_modules(self, modules):
         for module in modules:
             self.modules.append(Module(module))

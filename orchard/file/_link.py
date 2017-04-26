@@ -11,12 +11,15 @@ from ..module import Module, Argument, Exclusive
 
 
 class LinkFile(YAMLFile):
+    # self.config - used to store configuration data from the link file
 
     def __init__(self, filepath):
         super().__init__(filepath)
         self.config = self.data.get('config')
         self._resolve_dependencies()
 
+    # Adds a module to the class's self.modules; generates a temporary
+    # self.dependency_map for use in resolve_dependencies() below
     def _add_modules(self, modules):
         self.dependency_map = {}
         for module in modules:
@@ -24,6 +27,8 @@ class LinkFile(YAMLFile):
             if 'dependencies' in module:
                 self.dependency_map[module['name']] = module['dependencies']
 
+    # Adds dependencies to the individual Module class objects in self.modules
+    # as defined by self.dependency_map which was generated in add_modules()
     def _resolve_dependencies(self):
         for module in self.modules:
             deps = self.dependency_map.get(module.name)
@@ -32,6 +37,7 @@ class LinkFile(YAMLFile):
                     dep_module, = filter(lambda x: x.name == dep, self.modules)
                     module.add_dependency(dep_module)
 
+    # Used by template_config_file() during config file generation
     def _build_dictionary(self, module, key):
         result = []
         for value in getattr(module, key):
@@ -44,6 +50,7 @@ class LinkFile(YAMLFile):
                 result.append(exc_data)
         return result
 
+    # Generates a template config file from the class's data
     def template_config_file(self, output_path="config.yaml"):
         data = {'modules': []}
         for module in self.modules:

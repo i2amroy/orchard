@@ -8,6 +8,10 @@
 
 
 class Argument:
+    # self.command - the command string for this argument
+    # self.value - the actual value of this argument
+    # self.branchable - the true/false state of the branchable flag
+    # self.is_flag - whether or not this argument is a flag
     command = None
     value = None
     branchable = False

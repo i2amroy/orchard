@@ -10,6 +10,9 @@ from ._argument import Argument, Exclusive
 
 
 class Module:
+    # self.name - name of the module
+    # self.executable_path - path to the executable file linked to module
+    # self.arguments - A list of Argument class objects
     data = None
     optionals = None
     dependencies = []

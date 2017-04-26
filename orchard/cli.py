@@ -58,7 +58,7 @@ def build(link_file_path, config_file_path, output):
 
     try:
         link_file = LinkFile(link_file_path)
-        config_file = ConfigFile(config_file_path, False)
+        config_file = ConfigFile(config_file_path, True)
         if validate(link_file_path, config_file_path):
             click.secho('Invalid configuration file.', fg='red', err=True)
             click.get_current_context().exit(1)
@@ -77,7 +77,7 @@ def build(link_file_path, config_file_path, output):
         with open('blah.yaml', 'w+') as fh:
             yaml.safe_dump(result, fh, default_flow_style=False)
 
-        config_file = ConfigFile('blah.yaml', False)
+        config_file = ConfigFile('blah.yaml', True)
         generate_luigi(config_file, link_file)
     except (ValueError, RuntimeError) as e:
         click.secho(str(e), fg='red', err=True, bold=True)

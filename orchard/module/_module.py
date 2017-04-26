@@ -61,6 +61,8 @@ class Module:
         try:
             argument, = filter(lambda x: x.has_name(argument_name),
                                self.arguments)
+            # Required for properly handling exclusives
+            argument = argument.get_argument(argument_name)
         except ValueError:
             raise ValueError('Unable to retrieve data from file '
                              'for argument: %s.' % argument_name) from None

@@ -7,6 +7,11 @@
 # ----------------------------------------------------------------------------
 
 
+# TODO: Merge Argument and Exclusive into one class with a single API
+# TODO: Save whether we belong to a config or link file and throw errors if you
+# request information from one that belongs in the other (i.e., is_flag is only
+# defined in the link file, and will always report "False" if called from the
+# config file).
 class Argument:
     # self.command - the command string for this argument
     # self.value - the actual value of this argument
@@ -30,6 +35,12 @@ class Argument:
 
     def add_value(self, value):
         self.value = value
+
+    def get_argument(self, argument_name):
+        if argument_name != self.name:
+            raise ValueError(
+                'Error, calling mismatched get_argument on: %s' % self.name)
+        return self
 
     def has_name(self, inname):
         return self.name == inname

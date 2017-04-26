@@ -36,11 +36,23 @@ class LogFile():
         else:
             self.configs[1] = filedata
 
-    def get_yaml(self):
+    # Returns a yaml representation of the Logfile
+    def _get_yaml(self):
         data = {}
         for branchnum, config_file in self.configs.items():
             data[branchnum] = config_file.get_yaml()
         return data
+
+    # Adds a new branch to the logfile structure, returning the branchnum of
+    # the new branch
+    def add_branch(self, config_file):
+        new_branch_num = 1
+        while new_branch_num in self.configs:
+            new_branch_num += 1
+
+        self.configs[new_branch_num] = config_file
+        return new_branch_num
+
 
     # Writes the log data out to the given filepath
     def write(self, filepath):
@@ -50,4 +62,4 @@ class LogFile():
         yaml.SafeDumper.add_representer(type(None), _add_repr)
 
         with open(filepath, 'w') as fh:
-            yaml.safe_dump(self.get_yaml(), fh, default_flow_style=False)
+            yaml.safe_dump(self._get_yaml(), fh, default_flow_style=False)

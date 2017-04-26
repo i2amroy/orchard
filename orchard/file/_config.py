@@ -59,3 +59,7 @@ class ConfigFile(YAMLFile):
             data['modules'].append(module_data)
 
         return data
+
+    def compare(self, config_file, link_file):
+        #TODO
+        pass

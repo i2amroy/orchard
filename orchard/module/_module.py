@@ -66,6 +66,10 @@ class Module:
                              'for module: %s.' % argument_name) from None
         return argument
 
+    def get_dynamic_paths(self):
+        # TODO
+        pass
+
     def add_dependency(self, dependency):
         self.dependencies = self.dependencies or []
         self.dependencies.append(dependency)

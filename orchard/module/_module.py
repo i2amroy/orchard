@@ -40,9 +40,11 @@ class Module:
         commands = []
         module_link_data = link_file.get_module_data(self.name)
 
+        # TODO: Make this handle Exclusives gracefully, allowing us to remove
+        # get_argument_or_exclusive() completely
         for argument in self.arguments:
             argument_link_data = \
-                module_link_data.get_argument_data(argument.name)
+                module_link_data.get_argument_or_exclusive(argument.name)
             if isinstance(argument, Argument):
                 if argument_link_data.command:
                     commands.append(argument_link_data.command)
@@ -56,6 +58,16 @@ class Module:
                 if exc_arg_data.is_flag is False:
                     commands.append(selected.value)
         return [module_link_data.executable_path, *commands]
+
+    # Note: Used specifically for get_command_line_args until that is updated;
+    # DO NOT USE! See get_argument_data() for future uses instead!
+    def get_argument_or_exclusive(self, name):
+        try:
+            argument, = filter(lambda x: x.name == name, self.arguments)
+        except ValueError:
+            raise ValueError('Unable to retrieve data from file '
+                             'for argument: %s.' % name) from None
+        return argument
 
     def get_argument_data(self, argument_name):
         try:

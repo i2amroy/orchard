@@ -11,7 +11,8 @@
 # TODO: Save whether we belong to a config or link file and throw errors if you
 # request information from one that belongs in the other (i.e., is_flag is only
 # defined in the link file, and will always report "False" if called from the
-# config file).
+# config file). Alternatively merge the Config and Link file structures into
+# a single structure with all of the data
 class Argument:
     # self.command - the command string for this argument
     # self.value - the actual value of this argument
@@ -21,27 +22,37 @@ class Argument:
     value = None
     branchable = False
     is_flag = False
+    is_dyn_path = False
 
     def __init__(self, data):
         self.name = data.get('name')
         self.command = data.get('command')
         self.value = data.get('value')
+        # Optional data flags
         tmp = data.get('isFlag')
-        if tmp is not None:
-            self.is_flag = tmp
+        if tmp is True:
+            self.is_flag = True
         tmp = data.get('is_branch')
-        if tmp is not None:
-            self.branchable = tmp
+        if tmp is True:
+            self.branchable = True
+        tmp = data.get('is_dyn_path')
+        if tmp is True:
+            self.is_dyn_path = True
 
     def add_value(self, value):
         self.value = value
 
+    # Returns itself if the name matches, else throws a ValueError. Used
+    # to provide a matching interface with exclusive; replace when they are
+    # merged
     def get_argument(self, argument_name):
         if argument_name != self.name:
             raise ValueError(
-                'Error, calling mismatched get_argument on: %s' % self.name)
+                'Error, calling mismatched get_argument'
+                ' on: %s' % self.name) from None
         return self
 
+    # Used to provide a matching interface with exclusive; replace upon merging
     def has_name(self, inname):
         return self.name == inname
 

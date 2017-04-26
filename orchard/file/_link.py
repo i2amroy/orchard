@@ -15,7 +15,6 @@ class LinkFile(YAMLFile):
 
     def __init__(self, filepath):
         super().__init__(filepath)
-        self.config = self.data.get('config')
         self._resolve_dependencies()
 
     # Adds a module to the class's self.modules; generates a temporary

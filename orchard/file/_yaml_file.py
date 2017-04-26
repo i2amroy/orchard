@@ -19,14 +19,14 @@ class YAMLFile:
     modules = None
 
     def __init__(self, filepath):
-        self.data = collections.defaultdict(list)
+        data = collections.defaultdict(list)
         with open(filepath) as fh:
             try:
-                self.data.update(yaml.load(fh))
+                data.update(yaml.load(fh))
             except Exception as e:
                 raise RuntimeError('The link file is not a valid yaml format.')
 
-        modules = self.data.get('modules')
+        modules = data.get('modules')
         if modules:
             self.modules = []
             self._add_modules(modules)

@@ -59,11 +59,11 @@ class Module:
 
     def get_argument_data(self, argument_name):
         try:
-            argument, = filter(lambda x: x.name == argument_name,
+            argument, = filter(lambda x: x.has_name(argument_name),
                                self.arguments)
         except ValueError:
-            raise ValueError('Unable to retreive linkage data from link file '
-                             'for module: %s.' % argument_name) from None
+            raise ValueError('Unable to retrieve data from file '
+                             'for argument: %s.' % argument_name) from None
         return argument
 
     def get_dynamic_paths(self):

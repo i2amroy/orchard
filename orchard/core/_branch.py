@@ -203,7 +203,7 @@ def branch_compare(config_file_data, branchconfig, dep_struct, link_file_data):
 # as a workspace path, building the requisite folder structure if one exists
 # and updating the passed config_file_data to meet any new branching
 # requirements.
-def branching(config_file_data, link_file_data, workspace_path):
+def branching_old(config_file_data, link_file_data, workspace_path):
     config_file_data = copy.deepcopy(config_file_data)
     # First build the dependency structure for use in later calls
     dep_struct = build_dep_struct(link_file_data)
@@ -282,7 +282,7 @@ def branching(config_file_data, link_file_data, workspace_path):
     return config_file_data
 
 
-def branching2(config_file, link_file, workspace_path):
+def branching(config_file, link_file, workspace_path):
     # Get the branchlog file
     work_path = Path(workspace_path) / "branchlog.yaml"
     # If no branchlog file exists then this is a brand new workspace, so

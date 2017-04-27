@@ -61,5 +61,5 @@ class LogFile():
 
         yaml.SafeDumper.add_representer(type(None), _add_repr)
 
-        with open(filepath, 'w') as fh:
+        with open(str(filepath), 'w') as fh:
             yaml.safe_dump(self._get_yaml(), fh, default_flow_style=False)

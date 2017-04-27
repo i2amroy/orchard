@@ -37,11 +37,12 @@ class TestGenerator(unittest.TestCase):
         link_path = os.path.join(FILES, 'link.yaml')
 
         config_file = ConfigFile(config_path, True)
+        config_file_dup = ConfigFile(config_path, True)
         link_file = LinkFile(link_path)
 
         with tempfile.TemporaryDirectory() as tmp:
             branching(config_file, link_file, tmp)
-            branching(config_file, link_file, tmp)
+            branching(config_file_dup, link_file, tmp)
 
             self.assertFalse(os.path.exists(os.path.join(tmp, '2')))
 
@@ -80,6 +81,6 @@ class TestGenerator(unittest.TestCase):
             branching(config_file3, link_file, tmp)
 
             self.assertTrue(os.path.exists(os.path.join(tmp, '3')))
-            self.assertTrue(os.path.lexists(os.path.join(tmp, '2', 'b.txt')))
-            self.assertTrue(os.path.lexists(os.path.join(tmp, '2', 'c.txt')))
-            self.assertFalse(os.path.lexists(os.path.join(tmp, '2', 'd.txt')))
+            self.assertTrue(os.path.lexists(os.path.join(tmp, '3', 'b.txt')))
+            self.assertTrue(os.path.lexists(os.path.join(tmp, '3', 'c.txt')))
+            self.assertFalse(os.path.lexists(os.path.join(tmp, '3', 'd.txt')))

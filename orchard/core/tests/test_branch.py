@@ -85,4 +85,3 @@ class TestGenerator(unittest.TestCase):
     #         self.assertTrue(os.path.lexists(os.path.join(tmp, '3', 'b.txt')))
     #         self.assertTrue(os.path.lexists(os.path.join(tmp, '3', 'c.txt')))
     #        self.assertFalse(os.path.lexists(os.path.join(tmp, '3', 'd.txt')))
-

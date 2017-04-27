@@ -10,7 +10,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='nau-orchard',
-    version='0.0.1',
+    version='0.0.2',
     description='A pipeline management generation tool',
     author='ACGT Tax. Consultants',
     author_email='blazer@nau.edu',

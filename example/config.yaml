@@ -2,7 +2,7 @@ modules:
 - arguments:
   - infile: test_files/a.txt
   - outfile: b.txt
-  - digit: true
+  - digit: 4
   - exclusive:
     - required_exclusive_forward: true
     - required_exclusive_reverse:

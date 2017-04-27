@@ -59,8 +59,7 @@ class Module:
                     commands.append(selected.value)
         return [module_link_data.executable_path, *commands]
 
-    # Note: Used specifically for get_command_line_args until that is updated;
-    # DO NOT USE! See get_argument_data() for future uses instead!
+    # Retruns either the argument or exclusive that matches the given name
     def get_argument_or_exclusive(self, name):
         try:
             argument, = filter(lambda x: x.name == name, self.arguments)
@@ -82,16 +81,19 @@ class Module:
 
     # Returns a list of Argument Class objects that hold the dynamic paths
     # within this module
-    def get_dynamic_paths(self):
+    def get_dynamic_paths(self, link_file_mod):
         ret = []
         for arg in self.arguments:
             if isinstance(arg, Argument):
-                if arg.is_dyn_path:
+                link_arg = link_file_mod.get_argument_data(arg.name)
+                if link_arg.is_dyn_path:
                     ret.append(arg)
             elif isinstance(arg, Exclusive):
                 active_arg = arg.get_selected()
-                if active_arg.is_dyn_path:
+                link_arg = link_file_mod.get_argument_data(active_arg.name)
+                if link_arg.is_dyn_path:
                     ret.append(active_arg)
+        return ret
 
     def add_dependency(self, dependency):
         self.dependencies = self.dependencies or []

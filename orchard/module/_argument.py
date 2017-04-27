@@ -20,7 +20,7 @@ class Argument:
     # self.is_flag - whether or not this argument is a flag
     command = None
     value = None
-    branchable = False
+    branchable = True
     is_flag = False
     is_dyn_path = False
 
@@ -33,8 +33,8 @@ class Argument:
         if tmp is True:
             self.is_flag = True
         tmp = data.get('is_branch')
-        if tmp is True:
-            self.branchable = True
+        if tmp is False:
+            self.branchable = False
         tmp = data.get('is_dyn_path')
         if tmp is True:
             self.is_dyn_path = True

@@ -36,6 +36,18 @@ class LinkFile(YAMLFile):
                     dep_module, = filter(lambda x: x.name == dep, self.modules)
                     module.add_dependency(dep_module)
 
+    def get_module_depth(self, module_name):
+        # If it isn't in the map then it is at a level of 1
+        if module_name not in self.dependency_map:
+            return 1
+        else:
+            # Else find the depth of the deepest dependency and add 1 to
+            # the answer
+            depth = 0
+            for mod_name in self.dependency_map[module_name]:
+                depth = max(depth, self.get_module_depth(mod_name))
+            return depth + 1
+
     # Used by template_config_file() during config file generation
     def _build_dictionary(self, module, key):
         result = []

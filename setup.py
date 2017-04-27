@@ -12,7 +12,7 @@ setup(
     name='nau-orchard',
     version='0.0.2',
     description='A pipeline management generation tool',
-    author='ACGT Tax. Consultants',
+    author='AGTC Genetic Tax. Consultants',
     author_email='blazer@nau.edu',
     url='https://github.com/acgt-tax-consultants/orchard',
     download_url=('https://github.com/acgt-tax-consultants/orchard/archive/0.1'

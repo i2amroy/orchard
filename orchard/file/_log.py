@@ -53,7 +53,6 @@ class LogFile():
         self.configs[new_branch_num] = config_file
         return new_branch_num
 
-
     # Writes the log data out to the given filepath
     def write(self, filepath):
         def _add_repr(dumper, value):

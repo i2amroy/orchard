@@ -9,7 +9,6 @@
 from ._yaml_file import YAMLFile
 
 from ..module import Module, Argument, Exclusive
-import copy
 
 
 class ConfigFile(YAMLFile):

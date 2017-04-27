@@ -334,10 +334,6 @@ def branching(config_file, link_file, workspace_path):
             working_path = os.path.join(workspace_path, path)
             oldpath = insert_branch_into_path(working_path, best_branchnum)
             newpath = insert_branch_into_path(working_path, new_branchnum)
-            print(path)
-            print(working_path)
-            print(oldpath)
-            print(newpath)
             if not os.path.lexists(newpath):
                 os.symlink(
                     os.path.relpath(oldpath, os.path.dirname(newpath)),

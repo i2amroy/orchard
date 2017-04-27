@@ -10,7 +10,6 @@ import os
 import tempfile
 import unittest
 
-import yaml
 from orchard.core import branching
 from orchard.file import LinkFile, ConfigFile
 from . import DATA

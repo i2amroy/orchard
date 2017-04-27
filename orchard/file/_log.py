@@ -22,7 +22,7 @@ class LogFile():
     def __init__(self, filedata, new):
         if not new:
             data = collections.defaultdict(list)
-            with open(filedata) as fh:
+            with open(str(filedata)) as fh:
                 try:
                     data.update(yaml.load(fh))
                 except Exception as e:

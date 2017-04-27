@@ -71,7 +71,8 @@ def build(link_file_path, config_file_path, output):
         yaml.SafeDumper.add_representer(type(None), _add_repr)
 
         with open('blah.yaml', 'w+') as fh:
-            yaml.safe_dump(config_file.get_yaml(), fh, default_flow_style=False)
+            yaml.safe_dump(config_file.get_yaml(), fh,
+                           default_flow_style=False)
 
         config_file = ConfigFile('blah.yaml', True)
         generate_luigi(config_file, link_file)
